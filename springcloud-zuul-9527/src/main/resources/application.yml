@@ -1,0 +1,24 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: spring-cloud-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/,
+  instance:
+    instance-id: springcloud-zuul #修改eureka上的默认描述信息
+    prefer-ip-address: true
+#info配置,可以在eureka监控页面中点击id访问http://localhost:8001/actuator/info，说明这个微服务是干嘛用的
+info:
+  app.name: kangliuwen-springcloud
+  company.name: blog.kangliuwen
+zuul:
+  routes:
+    mydept1.serviceId: springcloud-provider-dept
+    mydept1.path: /mydept1/**
+  #ignored-services: "springcloud-provider-dept" #不能使用这个路径访问，一般我们会隐藏微服务名
+  ignored-services: "*" #隐藏所有微服务名称，必须通过设置的/mydept/*访问
+  prefix: /kang
+
